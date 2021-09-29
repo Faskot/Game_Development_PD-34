@@ -17,7 +17,7 @@ public class PlayerControle : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsCell;
     [SerializeField] private Collider2D headCollider;
-    [SerializeField] private int _maxHp;
+   
     
     [Header(("Animation"))] 
     [SerializeField] private Animator _animator;
@@ -34,25 +34,14 @@ public class PlayerControle : MonoBehaviour
     private float verticalMove;
     private bool jump;
     private bool crawl;
-    private int _currentHp;
 
-    private int CurrentHp
-    {
-        get => _currentHp;
-        set
-        {
-            _currentHp = value;
-            _hpBar.value = _currentHp;
-        }
-    }
     
     // Start is called before the first frame update
     void Start()
     {
         Vector2 vector = new Vector2(10,11);
         rb = GetComponent<Rigidbody2D>();
-        _hpBar.maxValue = _maxHp;
-        CurrentHp = _maxHp;
+        
     }
 
     // Update is called once per frame
@@ -105,8 +94,15 @@ public class PlayerControle : MonoBehaviour
     
     public void AddHp(int hpPoints)
     {
-        CurrentHp += hpPoints;
-        if (CurrentHp > _maxHp)
-            CurrentHp = _maxHp;
+        Debug.Log("Hp raised" + hpPoints );
     }
+    public void AddMana(int ManaPoints)
+    {
+        Debug.Log("Mana raised" + ManaPoints );
+    }
+    public void AddCristal(int CristalPoints)
+    {
+        Debug.Log("Cristal raised" + CristalPoints );
+    }
+    
 }

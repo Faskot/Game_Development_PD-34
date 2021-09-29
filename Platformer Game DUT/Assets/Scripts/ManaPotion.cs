@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HpPotion : MonoBehaviour
+public class ManaPotion : MonoBehaviour
 {
-    [SerializeField] private int _hpPoints;
+    
+    [SerializeField] private int _ManaPoints;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -12,7 +13,7 @@ public class HpPotion : MonoBehaviour
         
         if (player != null)
         {
-            player.AddHp(_hpPoints);
+            player.AddMana(_ManaPoints);
             Destroy(gameObject);
         }
     }
