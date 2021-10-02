@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Cristal : MonoBehaviour
 {
-    [SerializeField] private int _CristalPoints;
+    [SerializeField] private int _cristalAmount;
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerControle player = other.gameObject.GetComponent<PlayerControle>();
+        PlayerControle player = other.GetComponent<PlayerControle>();
         
         if (player != null)
         {
-            player.AddCristal(_CristalPoints);
+            player.CristalAmount += +_cristalAmount;
+            Debug.Log("Cristal raised" + _cristalAmount );
             Destroy(gameObject);
         }
     }

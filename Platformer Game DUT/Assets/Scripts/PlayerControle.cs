@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControle : MonoBehaviour
 {
@@ -17,6 +19,8 @@ public class PlayerControle : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsCell;
     [SerializeField] private Collider2D headCollider;
+    [SerializeField] private int _maxHp;
+    [SerializeField] private int _maxMana;
    
     
     [Header(("Animation"))] 
@@ -27,18 +31,58 @@ public class PlayerControle : MonoBehaviour
     [SerializeField] private string _crouchAnimatorKey;
 
     [Header("UI")]
+    [SerializeField] private TMP_Text _cristalAmountText;
     [SerializeField] private Slider _hpBar;
+    [SerializeField] private Slider _manaBar;
 
 
     private float horizontalMove;
     private float verticalMove;
     private bool jump;
     private bool crawl;
+    private int _cristalAmount;
+    private int _currentHp;
+    private int _currentMana;
+    private float _lastHurtTime;
 
+    public int CristalAmount
+    {
+        get => _cristalAmount;
+        set
+        {
+            _cristalAmount = value;
+            _cristalAmountText.text = value.ToString();
+        }
+    }
+    private int CurrentMana
+    {
+        get => _currentMana;
+        set
+        {
+            _currentMana = value;
+            _manaBar.value = _currentMana;
+        }
+    }
+    private int CurrentHp
+    {
+        get => _currentHp;
+        set
+        {
+            _currentHp = value;
+            _hpBar.value = _currentHp;
+        }
+    }
     
     // Start is called before the first frame update
     void Start()
     {
+        CristalAmount = 0;
+        
+        _manaBar.maxValue = _maxMana;
+        CurrentMana = _maxMana;
+        
+        _hpBar.maxValue = _maxHp;
+        CurrentHp = _maxHp;
         Vector2 vector = new Vector2(10,11);
         rb = GetComponent<Rigidbody2D>();
         
@@ -94,15 +138,59 @@ public class PlayerControle : MonoBehaviour
     
     public void AddHp(int hpPoints)
     {
-        Debug.Log("Hp raised" + hpPoints );
+        int missingHp = _maxHp - CurrentHp;
+        int pointToAdd = missingHp > hpPoints ? hpPoints : missingHp;
+        StartCoroutine(RestoreHp(pointToAdd));
+        Debug.Log("HPrised" + hpPoints);
     }
-    public void AddMana(int ManaPoints)
+
+    public void AddMana(int manaPoints)
     {
-        Debug.Log("Mana raised" + ManaPoints );
+        int missingMana = _maxMana - CurrentMana;
+        int pointToAdd = missingMana > manaPoints ? manaPoints : missingMana;
+        StartCoroutine(RestoreMana(pointToAdd));
+        Debug.Log("Mana raised" + manaPoints);
     }
-    public void AddCristal(int CristalPoints)
+    private IEnumerator RestoreMana(int pointToAdd)
     {
-        Debug.Log("Cristal raised" + CristalPoints );
+        while (pointToAdd != 0)
+        {
+            pointToAdd--;
+            CurrentMana++;
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+    private IEnumerator RestoreHp(int pointToAdd)
+    {
+        while (pointToAdd != 0)
+        {
+            pointToAdd--;
+            CurrentHp++;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
     
+    public void TakeDamage(int damage, float pushPower = 0, float posX = 0)
+    {
+        
+        CurrentHp -= damage;
+        if (CurrentHp <= 0)
+        {
+            gameObject.SetActive(false);
+            Invoke(nameof(ReloadScene), 1f);
+        }
+
+        if (pushPower != 0 && Time.time - _lastHurtTime > 0.5f)
+        {
+            _lastHurtTime = Time.time;
+            int direction = posX > transform.position.x ? -1 : 1;
+            rb.AddForce(new Vector2(direction * pushPower/4, pushPower));
+        }
+    }
+
+    private void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
+
