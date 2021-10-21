@@ -14,9 +14,14 @@ public class PlatformForNextLevel : MonoBehaviour
         PlayerControle   player = gameObject.GetComponent<PlayerControle>();
         if (player != null)
         {
+           
             if (player.CristalAmount >= _cristalToNextLevel)
             {
                 gameObject.SetActive(true);
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
        

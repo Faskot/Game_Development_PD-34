@@ -10659,7 +10659,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1512964547992714845, guid: 6b23a475f8b78f64ea44b8ed58c60682, type: 3}
       propertyPath: speed
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512964547992714845, guid: 6b23a475f8b78f64ea44b8ed58c60682, type: 3}
+      propertyPath: _maxHp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512964547992714845, guid: 6b23a475f8b78f64ea44b8ed58c60682, type: 3}
+      propertyPath: _maxMana
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512964547992714845, guid: 6b23a475f8b78f64ea44b8ed58c60682, type: 3}
+      propertyPath: jumpForce
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1885020392434178512, guid: 6b23a475f8b78f64ea44b8ed58c60682, type: 3}
       propertyPath: m_AnchorMax.x

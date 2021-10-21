@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControle : MonoBehaviour
 {
     
-    Rigidbody2D rb;
+    Rigidbody2D _rb;
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
     [SerializeField] private float groundCheckerRadius;
@@ -76,6 +76,7 @@ public class PlayerControle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+    
         CristalAmount = 0;
         
         _manaBar.maxValue = _maxMana;
@@ -84,7 +85,7 @@ public class PlayerControle : MonoBehaviour
         _hpBar.maxValue = _maxHp;
         CurrentHp = _maxHp;
         Vector2 vector = new Vector2(10,11);
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
         
     }
 
@@ -114,14 +115,14 @@ public class PlayerControle : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+        _rb.velocity = new Vector2(horizontalMove * speed, _rb.velocity.y);
         bool canJump = Physics2D.OverlapCircle(groundChecker.position, groundCheckerRadius, whatIsGround);
         bool canStand = !Physics2D.OverlapCircle(headChecker.position, headCheckerRadius, whatIsCell);
         headCollider.enabled = !crawl && canStand;
         
         if(jump && canJump)
         {
-            rb.AddForce(Vector2.up * jumpForce);
+            _rb.AddForce(Vector2.up * jumpForce);
             jump = false;
         }
         
@@ -184,7 +185,7 @@ public class PlayerControle : MonoBehaviour
         {
             _lastHurtTime = Time.time;
             int direction = posX > transform.position.x ? -1 : 1;
-            rb.AddForce(new Vector2(direction * pushPower/4, pushPower));
+            _rb.AddForce(new Vector2(direction * pushPower/4, pushPower));
         }
     }
 
