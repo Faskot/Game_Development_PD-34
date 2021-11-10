@@ -7,11 +7,11 @@ public class PlatformForNextLevel : MonoBehaviour
 {
     [SerializeField] private int _cristalToNextLevel;
 
-     void Update()
+     void FixedUpdate()
     {
         
        
-        PlayerControle   player = gameObject.GetComponent<PlayerControle>();
+       PlayerControle  player = gameObject.GetComponent<PlayerControle>();
         if (player != null)
         {
            
