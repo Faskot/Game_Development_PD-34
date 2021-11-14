@@ -307,7 +307,7 @@ TextureImporter:
     second: ground_100
   - first:
       213: 21300202
-    second: ground_101
+    second: BloodGround
   - first:
       213: 21300204
     second: ground_102
@@ -536,6 +536,9 @@ TextureImporter:
   - first:
       213: -465389796530010673
     second: ground_177
+  - first:
+      213: 6740115482885086893
+    second: ground_15
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -2746,16 +2749,16 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ground_101
+      name: BloodGround
       rect:
         serializedVersion: 2
-        x: 80
-        y: 96
-        width: 16
-        height: 16
+        x: 48
+        y: 48
+        width: 48
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 1}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -4358,6 +4361,27 @@ TextureImporter:
       bones: []
       spriteID: fc5ccbf127a9a89f0800000000000000
       internalID: -465389796530010673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ground_15
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 64
+        width: 73
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 9, w: 10}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daed97e2253b98d50800000000000000
+      internalID: 6740115482885086893
       vertices: []
       indices: 
       edges: []

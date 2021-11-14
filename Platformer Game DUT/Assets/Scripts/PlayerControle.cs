@@ -29,7 +29,8 @@ public class PlayerControle : MonoBehaviour
     [SerializeField] private string _runAnimatorKey;
     [SerializeField] private string _jumpAnimatorKey;
     [SerializeField] private string _crouchAnimatorKey;
-
+    [SerializeField] private string _diedAnimatorKey;
+    
     [Header("UI")]
     [SerializeField] private TMP_Text _cristalAmountText;
     [SerializeField] private Slider _hpBar;
@@ -139,6 +140,7 @@ public class PlayerControle : MonoBehaviour
     
     public void AddHp(int hpPoints)
     {
+        
         int missingHp = _maxHp - CurrentHp;
         int pointToAdd = missingHp > hpPoints ? hpPoints : missingHp;
         StartCoroutine(RestoreHp(pointToAdd));
@@ -175,10 +177,11 @@ public class PlayerControle : MonoBehaviour
     {
         
         CurrentHp -= damage;
+       
         if (CurrentHp <= 0)
         {
-            gameObject.SetActive(false);
-            Invoke(nameof(ReloadScene), 1f);
+            _animator.SetBool(_diedAnimatorKey, CurrentHp <= -0.01f);
+            Invoke(nameof(ReloadScene), 2f);
         }
 
         if (pushPower != 0 && Time.time - _lastHurtTime > 0.5f)

@@ -11,7 +11,12 @@ public class Skeleton : MonoBehaviour
     [SerializeField] private int _damage;
     
     private Vector2 _startPostion;
+    
+    [Header(("Animation"))] 
+    [SerializeField] private Animator _animator;
 
+    [SerializeField] private string _walkAnimatorKey;
+    [SerializeField] private string _atackAnimatorKey;
     private Vector2 _drawPostion
     {
         get
@@ -61,8 +66,13 @@ public class Skeleton : MonoBehaviour
         PlayerControle player = other.collider.GetComponent<PlayerControle>();
         if (player != null)
         {
-            player.TakeDamage(_damage,transform.position.x);
+            player.TakeDamage(_damage, transform.position.x);
+            if (_animator)
+            {
+                _animator.SetTrigger("Attack");
+            }
         }
-        
     }
+
 }
+
